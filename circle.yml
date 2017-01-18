@@ -1,12 +1,15 @@
 version: 2
-executorType: docker
+executorType: machine
 containerInfo:
   - image: python:2.7.12
 
 stages:
   build:
-    workDir: .
+    workDir: ~/app
     steps:
       - type: checkout
       - type: shell
+        name: test docker
+        shell: /bin/bash
         command: docker --version
+        

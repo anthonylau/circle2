@@ -8,13 +8,31 @@ jobs:
    build:
      docker:
        - image: docker:17.05.0-ce-git
-     working_directory: ~/circleci-demo-workflows
      steps:
        - checkout
        - setup_remote_docker:
             docker_layer_caching: true
        - run: docker build -t anthony/test .
        - run: docker run --rm anthony/test echo test
+   build2:
+     docker:
+       - image: docker:17.05.0-ce-git
+     steps:
+       - checkout
+       - setup_remote_docker:
+            docker_layer_caching: true
+       - run: docker build -t anthony/test .
+       - run: docker run --rm anthony/test echo test2
+   build3:
+     docker:
+       - image: docker:17.05.0-ce-git
+     steps:
+       - checkout
+       - setup_remote_docker:
+            docker_layer_caching: true
+       - run: docker build -t anthony/test .
+       - run: docker run --rm anthony/test echo test3
+
 
 workflows:
   version: 2
@@ -24,7 +42,6 @@ workflows:
       - build:
           requires:
             - checkout_code
-      - build
-      - build
-      - build
+      - build2
+      - build3
             

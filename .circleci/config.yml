@@ -2,7 +2,9 @@ version: 2
 jobs:
    build:
      docker:
-       - image: circleci/python:3.6
+       - image: docker:17.05.0-ce-git
      steps:
        - checkout
-       - run: echo "hello world"
+       - setup_remote_docker
+       - run: docker build -t anthony/test .
+       - run: docker run --rm anthony/test echo test

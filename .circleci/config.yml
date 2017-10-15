@@ -3,21 +3,14 @@ jobs:
    checkout_code:
      docker:
        - image: docker:17.05.0-ce-git
-     working_directory: ~/circleci-demo-workflows
      steps:
        - checkout
-       - run:
-          name: save SHA to a file
-          command: echo $CIRCLE_SHA1 > .circle-sha
-       - save_cache:
-          key: v1-repo-{{ checksum ".circle-sha" }}
-          paths:
-            - ~/circleci-demo-workflows
    build:
      docker:
        - image: docker:17.05.0-ce-git
      working_directory: ~/circleci-demo-workflows
      steps:
+       - checkout
        - setup_remote_docker:
             docker_layer_caching: true
        - run: docker build -t anthony/test .

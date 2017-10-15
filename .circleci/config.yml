@@ -6,12 +6,12 @@ jobs:
      steps:
        - checkout
    build:
-     docker:
-       - image: docker:17.05.0-ce-git
+     machine:
+          build:
+     machine:
+       docker_layer_caching: true 
      steps:
        - checkout
-       - setup_remote_docker:
-            docker_layer_caching: true
        - run: docker build -t anthony/test .
        - run: docker run --rm anthony/test echo test
    build2:
@@ -23,15 +23,6 @@ jobs:
             docker_layer_caching: true
        - run: docker build -t anthony/test .
        - run: docker run --rm anthony/test echo test2
-   build3:
-     docker:
-       - image: docker:17.05.0-ce-git
-     steps:
-       - checkout
-       - setup_remote_docker:
-            docker_layer_caching: true
-       - run: docker build -t anthony/test .
-       - run: docker run --rm anthony/test echo test3
 
 
 workflows:
@@ -43,5 +34,5 @@ workflows:
           requires:
             - checkout_code
       - build2
-      - build3
+
             

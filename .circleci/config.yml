@@ -24,4 +24,7 @@ workflows:
       - build:
           requires:
             - checkout_code
+      - build
+      - build
+      - build
             

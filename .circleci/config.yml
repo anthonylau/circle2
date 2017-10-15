@@ -1,11 +1,25 @@
 version: 2
 jobs:
-   build:
+   checkout_code:
      docker:
        - image: docker:17.05.0-ce-git
      steps:
        - checkout
+   build:
+     docker:
+       - image: docker:17.05.0-ce-git
+     steps:
        - setup_remote_docker:
             docker_layer_caching: true
        - run: docker build -t anthony/test .
        - run: docker run --rm anthony/test echo test
+
+workflows:
+  version: 2
+  hell-world:
+    jobs:
+      - checkout_code
+      - build:
+          requires:
+            - checkout_code
+            
